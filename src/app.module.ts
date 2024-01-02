@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UserModel, PostModel } from './models';
 
 @Module({
-  imports: [],
+  imports: [
+    MongooseModule.forRoot(
+      'mongodb+srv://admin:admin@cluster0.yu52y7x.mongodb.net/',
+    ),
+    MongooseModule.forFeature([{ name: 'User', schema: UserModel }]),
+    MongooseModule.forFeature([{ name: 'Post', schema: PostModel }]),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
