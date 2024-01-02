@@ -13,4 +13,6 @@ export class User extends Document {
   isAdmin: boolean;
 }
 
+export type UserDocument = User & Document;
+
 export const UserModel = SchemaFactory.createForClass(User);
