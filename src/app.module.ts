@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModel, PostModel } from './models';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { UserModel, PostModel } from './models';
     ),
     MongooseModule.forFeature([{ name: 'User', schema: UserModel }]),
     MongooseModule.forFeature([{ name: 'Post', schema: PostModel }]),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
