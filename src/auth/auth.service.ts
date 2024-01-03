@@ -29,9 +29,10 @@ export class AuthService {
   }
 
   login(user: any) {
+    console.log(user);
     const payload = {
-      username: user.name,
-      sub: user.id,
+      name: user.username,
+      id: user.id,
     };
 
     return {
