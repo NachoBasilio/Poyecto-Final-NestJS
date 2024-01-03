@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/interfaces';
 
 @Injectable()
 export class AuthService {
   testUser: User;
 
-  constructor() {
+  constructor(private jwtService: JwtService) {
     this.testUser = {
       id: 1,
       name: 'nacho',
@@ -13,6 +14,7 @@ export class AuthService {
     };
   }
 
+  //Aqui traer el mongo
   async validateUser(username: string, password: string): Promise<any> {
     if (
       this.testUser?.name == username &&
@@ -24,5 +26,16 @@ export class AuthService {
       };
     }
     return null;
+  }
+
+  login(user: any) {
+    const payload = {
+      username: user.name,
+      sub: user.id,
+    };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }

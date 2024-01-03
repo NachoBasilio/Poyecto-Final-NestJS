@@ -34,3 +34,8 @@ Vamos a programar algo que toda persona que programa hace al menos una vez en su
 Cada endpoint protegido debe ser asegurado mediante el middleware de autenticación, y para las rutas administrativas, un middleware adicional que verifique si el usuario es un administrador. 
 
 Los endpoints deberán ser documentados para poder ser consumidos por un frontend. También se incluirán test y logging donde corresponda.
+
+Tareas realizadas: 
+
+- Conexión con MongoDB
+- Aplicar Passport
