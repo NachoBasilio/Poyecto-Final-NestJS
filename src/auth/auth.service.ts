@@ -1,38 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/interfaces';
+import * as bcrypt from 'bcrypt';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User, UserDocument } from 'src/models';
 
 @Injectable()
 export class AuthService {
-  testUser: User;
+  constructor(
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private jwtService: JwtService,
+  ) {}
 
-  constructor(private jwtService: JwtService) {
-    this.testUser = {
-      id: 1,
-      name: 'nacho',
-      password: 'test',
-    };
+  async register(username: string, password: string): Promise<User> {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new this.userModel({
+      username,
+      password: hashedPassword,
+    });
+    return newUser.save();
   }
 
-  //Aqui traer el mongo
   async validateUser(username: string, password: string): Promise<any> {
-    if (
-      this.testUser?.name == username &&
-      this.testUser?.password === password
-    ) {
-      return {
-        id: this.testUser.id,
-        username: this.testUser.name,
-      };
+    const user = await this.userModel.findOne({ username }).exec();
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return { id: user.id, username: user.username };
     }
     return null;
   }
 
   login(user: any) {
-    console.log(user);
     const payload = {
       name: user.username,
-      id: user.id,
+      id: user.userId,
     };
 
     return {
