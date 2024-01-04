@@ -21,7 +21,7 @@ export class AuthService {
       this.testUser?.password === password
     ) {
       return {
-        userId: this.testUser.id,
+        id: this.testUser.id,
         username: this.testUser.name,
       };
     }
