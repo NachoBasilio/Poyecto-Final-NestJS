@@ -1,10 +1,13 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { UsersService } from './users.service';
 
-@Controller('users') // Define la ruta base para este controlador, por ejemplo, "/users"
-@UseGuards(JwtAuthGuard) // Aplica el guardia de autenticación JWT a todas las rutas del controlador
+@Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
-  @Get() // Ejemplo de una ruta protegida
+  constructor(private readonly usersService: UsersService) {}
+
+  @Get()
   getProtectedData() {
     return {
       message: 'Información protegida',
