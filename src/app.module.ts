@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UserModel, PostModel } from './models';
 import { AuthModule } from './auth/auth.module';
 import { AuthController } from './auth/auth.controller';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthController } from './auth/auth.controller';
     MongooseModule.forFeature([{ name: 'User', schema: UserModel }]),
     MongooseModule.forFeature([{ name: 'Post', schema: PostModel }]),
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService],
