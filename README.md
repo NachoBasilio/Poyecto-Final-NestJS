@@ -1,3 +1,99 @@
+# Documentación del proyecto final.
+
+### EndPoints para usuarios:
+
+- #### Registro de nuevos usuarios:
+
+     - Método: POST
+    - URL: /auth/register
+    - Body:
+        - ##### JSON:
+
+```
+{
+  "username": "<nombre_de_usuario>",
+  "password": "<contraseña>",
+  "isAdmin": <true_o_false>
+}
+```
+
+- #### Inicio de sesión para usuarios:
+    - Método: POST
+    - URL: /auth/login
+    - Body:
+        - ##### JSON:
+
+```
+{
+  "username": "<nombre_de_usuario>",
+  "password": "<contraseña>"
+}
+```
+
+- #### Listado de usuarios (restringido a administradores):
+
+    - Método: GET
+    - URL: /auth/users
+    - Headers:
+        - ##### JSON:
+        
+```
+{
+  "Authorization": "Bearer <tu_token_de_acceso>"
+}
+```
+
+- #### Obtener detalles de un usuario específico:
+
+    - Método: GET
+    - URL: /auth/users/{id}
+    - Headers:
+        - ##### JSON:
+```
+{
+  "Authorization": "Bearer <tu_token_de_acceso>"
+}
+```
+
+- #### Actualizar un usuario específico (solo su propio perfil o si es administrador):
+
+    - Método: PUT
+    - URL: /auth/users/{id}
+    - Body:
+        - ##### JSON:
+        
+        
+    ```
+    {
+      "username": "<nuevo_nombre_de_usuario>",
+      "password": "<nueva_contraseña>",
+      "isAdmin": <true_o_false>
+    }
+    ```
+
+   - Headers:
+        - ##### JSON:
+
+    ```
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+    
+ - #### Eliminar un usuario (solo administradores):
+
+    - Método: DELETE
+    - URL: /auth/users/{id}
+    - Headers:
+        - ##### JSON:
+  ```
+{
+  "Authorization": "Bearer <tu_token_de_acceso>"
+}
+  ```
+
+
+
 # Trabajo práctico final
 
 Vamos a programar algo que toda persona que programa hace al menos una vez en su vida: nuestro propio blog. Para esto vamos a definir una serie de endpoints RESTful para gestionar usuarios, posts y autenticación. Considerando la utilización de MongoDB y un middleware de autorización para usuarios administradores, los endpoints podrían quedar de la siguiente manera:
