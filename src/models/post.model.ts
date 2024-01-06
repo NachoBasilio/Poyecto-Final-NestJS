@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+export type PostDocument = Post & Document;
+
 @Schema()
-export class Post extends Document {
+export class Post {
   @Prop({ required: true })
   title: string;
 
@@ -16,4 +18,4 @@ export class Post extends Document {
   categories: string[];
 }
 
-export const PostModel = SchemaFactory.createForClass(Post);
+export const PostSchema = SchemaFactory.createForClass(Post);
