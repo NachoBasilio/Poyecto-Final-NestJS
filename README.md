@@ -1,5 +1,95 @@
 # Documentación del Proyecto Final - Blog
 
+## Comandos para iniciar el proyecto
+
+Para iniciar el proyecto, puedes usar los siguientes comandos que se encuentran en el archivo `package.json`:
+
+- `build`: Compila el proyecto. Ejecuta el comando `nest build`.
+- `format`: Formatea los archivos del proyecto. Ejecuta el comando `prettier --write \"src/**/*.ts\" \"test/**/*.ts\"`.
+- `start`: Inicia el proyecto. Ejecuta el comando `nest start`.
+- `start:dev`: Inicia el proyecto en modo desarrollo. Ejecuta el comando `nest start --watch`.
+- `start:debug`: Inicia el proyecto en modo debug. Ejecuta el comando `nest start --debug --watch`.
+- `start:prod`: Inicia el proyecto en modo producción. Ejecuta el comando `node dist/main`.
+- `lint`: Lintea el proyecto. Ejecuta el comando `eslint \"{src,apps,libs,test}/**/*.ts\" --fix`.
+- `test`: Ejecuta las pruebas del proyecto. Ejecuta el comando `jest`.
+- `test:watch`: Ejecuta las pruebas del proyecto en modo watch. Ejecuta el comando `jest --watch`.
+- `test:cov`: Ejecuta las pruebas del proyecto y genera un reporte de cobertura. Ejecuta el comando `jest --coverage`.
+- `test:debug`: Ejecuta las pruebas del proyecto en modo debug. Ejecuta el comando `node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand`.
+- `test:e2e`: Ejecuta las pruebas end-to-end del proyecto. Ejecuta el comando `jest --config ./test/jest-e2e.json`.
+
+## Dependencias del proyecto
+
+El proyecto tiene las siguientes dependencias y dependencias de desarrollo:
+
+### Dependencias
+
+- `@nestjs/common`: "^10.0.0"
+- `@nestjs/core`: "^10.0.0"
+- `@nestjs/jwt`: "^10.2.0"
+- `@nestjs/mongoose`: "^10.0.2"
+- `@nestjs/passport`: "^10.0.3"
+- `@nestjs/platform-express`: "^10.0.0"
+- `bcrypt`: "^5.1.1"
+- `mongoose`: "^8.0.3"
+- `mongoose-autopopulate`: "^1.1.0"
+- `passport`: "^0.7.0"
+- `passport-jwt`: "^4.0.1"
+- `passport-local`: "^1.0.0"
+- `reflect-metadata`: "^0.1.13"
+- `rxjs`: "^7.8.1"
+
+### Dependencias de desarrollo
+
+- `@nestjs/cli`: "^10.0.0"
+- `@nestjs/schematics`: "^10.0.0"
+- `@nestjs/testing`: "^10.0.0"
+- `@types/bcrypt`: "^5.0.2"
+- `@types/express`: "^4.17.17"
+- `@types/jest`: "^29.5.2"
+- `@types/node`: "^20.3.1"
+- `@types/passport-jwt`: "^3.0.13"
+- `@types/passport-local`: "^1.0.38"
+- `@types/supertest`: "^2.0.12"
+- `@typescript-eslint/eslint-plugin`: "^6.0.0"
+- `@typescript-eslint/parser`: "^6.0.0"
+- `dotenv`: "^16.3.1"
+- `eslint`: "^8.42.0"
+- `eslint-config-prettier`: "^9.0.0"
+- `eslint-plugin-prettier`: "^5.0.0"
+- `jest`: "^29.5.0"
+- `prettier`: "^3.0.0"
+- `source-map-support`: "^0.5.21"
+- `supertest`: "^6.3.3"
+- `ts-jest`: "^29.1.0"
+- `ts-loader`: "^9.4.3"
+- `ts-node`: "^10.9.1"
+- `tsconfig-paths`: "^4.2.0"
+- `typescript`: "^5.1.3"
+
+## Configuración de Jest
+
+La configuración de Jest para el proyecto es la siguiente:
+
+```json
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": "src",
+  "testRegex": ".*\\.spec\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "collectCoverageFrom": [
+    "**/*.(t|j)s"
+  ],
+  "coverageDirectory": "../coverage",
+  "testEnvironment": "node"
+}
+```
+
 ## Endpoints para Usuarios
 
 ### Registro de Nuevos Usuarios
