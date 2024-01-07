@@ -6,6 +6,8 @@ import {
   Req,
   UseGuards,
   Query,
+  Param,
+  Put,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { PostsService } from './posts.service';
@@ -26,5 +28,19 @@ export class PostsController {
     limit = limit > 0 ? limit : 10;
     page = page > 0 ? page : 1;
     return this.postsService.findAll(limit, page);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') postId: string) {
+    return this.postsService.findOne(postId);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') postId: string,
+    @Body() updatedPost: PostDocument,
+    @Req() req,
+  ) {
+    return this.postsService.update(postId, updatedPost, req.user);
   }
 }
