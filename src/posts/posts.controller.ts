@@ -8,6 +8,7 @@ import {
   Query,
   Param,
   Put,
+  Delete,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { PostsService } from './posts.service';
@@ -42,5 +43,15 @@ export class PostsController {
     @Req() req,
   ) {
     return this.postsService.update(postId, updatedPost, req.user);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') postId: string, @Req() req) {
+    return this.postsService.remove(postId, req.user);
+  }
+
+  @Get('user/:userId')
+  async findAllByUser(@Param('userId') userId: string) {
+    return this.postsService.findAllByUser(userId);
   }
 }

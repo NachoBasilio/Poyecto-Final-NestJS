@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PostDocument } from '../models/post.model';
 import { UserDocument } from 'src/models';
+import { Types } from 'mongoose';
 import { PostNotFoundException } from './exceptions/post-not-found.exception';
 
 @Injectable()
@@ -12,9 +13,10 @@ export class PostsService {
     private readonly postModel: Model<PostDocument>,
   ) {}
 
-  // posts.service.ts
   async create(post: PostDocument, user: UserDocument): Promise<PostDocument> {
-    post.author = user.username;
+    const authorId = user instanceof Types.ObjectId ? user : user._id;
+
+    post.author = authorId;
     const createdPost = new this.postModel(post);
     return createdPost.save();
   }
@@ -42,18 +44,37 @@ export class PostsService {
       throw new PostNotFoundException();
     }
 
-    // Verificar si el usuario es el autor o un administrador
-    if (user.username !== existingPost.author && !user.isAdmin) {
+    if (user._id !== existingPost.author && !user.isAdmin) {
       throw new UnauthorizedException();
     }
 
-    // Actualizar el post con los nuevos datos
     existingPost.title = updatedPost.title;
     existingPost.content = updatedPost.content;
 
-    // Asegúrate de que la propiedad categories existe en tu modelo
     existingPost.categories = updatedPost.categories || existingPost.categories;
 
     return existingPost.save();
+  }
+
+  async remove(postId: string, user: UserDocument): Promise<boolean> {
+    const existingPost = await this.postModel.findById(postId).exec();
+
+    if (!existingPost) {
+      return false;
+    }
+
+    const isAuthorOrAdmin =
+      user.isAdmin || existingPost.author.toString() === user._id.toString();
+
+    if (!isAuthorOrAdmin) {
+      return false;
+    }
+
+    await existingPost.deleteOne();
+    return true;
+  }
+
+  async findAllByUser(userId: string): Promise<PostDocument[]> {
+    return this.postModel.find({ author: userId }).exec();
   }
 }
