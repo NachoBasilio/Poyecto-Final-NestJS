@@ -1,100 +1,228 @@
-# Documentación del proyecto final.
+# Documentación del Proyecto Final - Blog
 
-### EndPoints para usuarios:
+## Endpoints para Usuarios
 
-- #### Registro de nuevos usuarios:
+### Registro de Nuevos Usuarios
 
-     - Método: POST
-    - URL: /auth/register
-    - Body:
-        - ##### JSON:
-
-```
-{
-  "username": "<nombre_de_usuario>",
-  "password": "<contraseña>",
-  "isAdmin": <true_o_false>
-}
-```
-
-- #### Inicio de sesión para usuarios:
-    - Método: POST
-    - URL: /auth/login
-    - Body:
-        - ##### JSON:
-
-```
-{
-  "username": "<nombre_de_usuario>",
-  "password": "<contraseña>"
-}
-```
-
-- #### Listado de usuarios (restringido a administradores):
-
-    - Método: GET
-    - URL: /auth/users
-    - Headers:
-        - ##### JSON:
-        
-```
-{
-  "Authorization": "Bearer <tu_token_de_acceso>"
-}
-```
-
-- #### Obtener detalles de un usuario específico:
-
-    - Método: GET
-    - URL: /auth/users/{id}
-    - Headers:
-        - ##### JSON:
-```
-{
-  "Authorization": "Bearer <tu_token_de_acceso>"
-}
-```
-
-- #### Actualizar un usuario específico (solo su propio perfil o si es administrador):
-
-    - Método: PUT
-    - URL: /auth/users/{id}
-    - Body:
-        - ##### JSON:
-        
-        
+- **Método:** POST
+- **URL:** `/auth/register`
+- **Body:**
+  - **JSON:**
+    ```json
+    {
+      "username": "<nombre_de_usuario>",
+      "password": "<contraseña>",
+      "isAdmin": <true_o_false>
+    }
     ```
+
+### Inicio de Sesión para Usuarios
+
+- **Método:** POST
+- **URL:** `/auth/login`
+- **Body:**
+  - **JSON:**
+    ```json
+    {
+      "username": "<nombre_de_usuario>",
+      "password": "<contraseña>"
+    }
+    ```
+
+### Listado de Usuarios (restringido a administradores)
+
+- **Método:** GET
+- **URL:** `/auth/users`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Obtener Detalles de un Usuario Específico
+
+- **Método:** GET
+- **URL:** `/auth/users/{id}`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Actualizar un Usuario Específico (solo su propio perfil o si es administrador)
+
+- **Método:** PUT
+- **URL:** `/auth/users/{id}`
+- **Body:**
+  - **JSON:**
+    ```json
     {
       "username": "<nuevo_nombre_de_usuario>",
       "password": "<nueva_contraseña>",
       "isAdmin": <true_o_false>
     }
     ```
-
-   - Headers:
-        - ##### JSON:
-
-    ```
+- **Headers:**
+  - **JSON:**
+    ```json
     {
       "Authorization": "Bearer <tu_token_de_acceso>"
     }
     ```
-    
- - #### Eliminar un usuario (solo administradores):
 
-    - Método: DELETE
-    - URL: /auth/users/{id}
-    - Headers:
-        - ##### JSON:
-  ```
-{
-  "Authorization": "Bearer <tu_token_de_acceso>"
-}
-  ```
+### Eliminar un Usuario (solo administradores)
+
+- **Método:** DELETE
+- **URL:** `/auth/users/{id}`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+## Endpoints para Posts
+
+### Crear un Nuevo Post (solo usuarios registrados)
+
+- **Método:** POST
+- **URL:** `/posts`
+- **Body:**
+  - **JSON:**
+    ```json
+    {
+      "title": "<titulo_del_post>",
+      "content": "<contenido_del_post>",
+      "categories": ["<categoria1>", "<categoria2>", ...]
+    }
+    ```
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Listado de Todos los Posts
+
+- **Método:** GET
+- **URL:** `/posts`
+- **Query Parameters:**
+  - `limit` (número de resultados por página, default: 10)
+  - `page` (número de página, default: 1)
+
+### Ver Detalles de un Post Específico
+
+- **Método:** GET
+- **URL:** `/posts/{id}`
+
+### Actualizar un Post (solo el autor o administradores)
+
+- **Método:** PUT
+- **URL:** `/posts/{id}`
+- **Body:**
+  - **JSON:**
+    ```json
+    {
+      "title": "<nuevo_titulo_del_post>",
+      "content": "<nuevo_contenido_del_post>",
+      "categories": ["<nueva_categoria1>", "<nueva_categoria2>", ...]
+    }
+    ```
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Eliminar un Post (solo el autor o administradores)
+
+- **Método:** DELETE
+- **URL:** `/posts/{id}`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Ver Todos los Posts de un Usuario Específico
+
+- **Método:** GET
+- **URL:** `/posts/user/{userId}`
+
+## Búsqueda y Filtrado
+
+### Buscar Posts
+
+- **Método:** GET
+- **URL:** `/posts/search`
+- **Query Parameters:**
+  - `query` (término de búsqueda)
+  - `limit` (número de resultados por página, default: 10)
+  - `page` (número de página, default: 1)
+
+### Filtrar Posts
+
+- **Método:** GET
+- **URL:** `/posts/filter`
+- **Query Parameters:**
+  - `category` (categoría a filtrar)
+  - `author` (autor a filtrar)
+  - `limit` (número de resultados por página, default: 10)
+  - `page` (número de página, default: 1)
+
+## Administración
+
+### Obtener Todos los Usuarios (solo administradores)
+
+- **Método:** GET
+- **URL:** `/admin/users`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Eliminar Usuarios (solo administradores)
+
+- **Método:** DELETE
+- **URL:** `/admin/users/{id}`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Obtener Todos los Posts con Opciones de Moderación (solo administradores)
+
+- **Método:** GET
+- **URL:** `/admin/posts`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+Cada endpoint protegido debe ser asegurado mediante el middleware de autenticación y, para las rutas administrativas, un middleware adicional que verifique si el usuario es un administrador. Los endpoints serán documentados para su consumo en un frontend, y se incluirán tests y logging según sea necesario.
 
 
-
-# Trabajo práctico final
+# Trabajo práctico final (consigna)
 
 Vamos a programar algo que toda persona que programa hace al menos una vez en su vida: nuestro propio blog. Para esto vamos a definir una serie de endpoints RESTful para gestionar usuarios, posts y autenticación. Considerando la utilización de MongoDB y un middleware de autorización para usuarios administradores, los endpoints podrían quedar de la siguiente manera:
 
@@ -131,7 +259,3 @@ Cada endpoint protegido debe ser asegurado mediante el middleware de autenticaci
 
 Los endpoints deberán ser documentados para poder ser consumidos por un frontend. También se incluirán test y logging donde corresponda.
 
-Tareas realizadas: 
-
-- Conexión con MongoDB
-- Aplicar Passport
