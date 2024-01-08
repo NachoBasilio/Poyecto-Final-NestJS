@@ -14,8 +14,8 @@ export class PostsService {
   ) {}
 
   async create(post: PostDocument, user: UserDocument): Promise<PostDocument> {
-    const authorId = user instanceof Types.ObjectId ? user : user._id;
-
+    const authorId = user instanceof Types.ObjectId ? user._id : user.id;
+    console.log(authorId);
     post.author = authorId;
     const createdPost = new this.postModel(post);
     return createdPost.save();
@@ -44,7 +44,10 @@ export class PostsService {
       throw new PostNotFoundException();
     }
 
-    if (user._id !== existingPost.author && !user.isAdmin) {
+    if (
+      !existingPost.author || // Verifica si author es null o undefined
+      (user.id.toString() !== existingPost.author.toString() && !user.isAdmin)
+    ) {
       throw new UnauthorizedException();
     }
 
@@ -64,7 +67,7 @@ export class PostsService {
     }
 
     const isAuthorOrAdmin =
-      user.isAdmin || existingPost.author.toString() === user._id.toString();
+      user.isAdmin || existingPost.author.toString() === user.id.toString();
 
     if (!isAuthorOrAdmin) {
       return false;

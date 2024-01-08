@@ -176,6 +176,8 @@ La configuración de Jest para el proyecto es la siguiente:
     }
     ```
 
+# Documentación del Proyecto Final - Blog
+
 ## Endpoints para Posts
 
 ### Crear un Nuevo Post (solo usuarios registrados)
@@ -308,6 +310,7 @@ La configuración de Jest para el proyecto es la siguiente:
       "Authorization": "Bearer <tu_token_de_acceso>"
     }
     ```
+
 
 Cada endpoint protegido debe ser asegurado mediante el middleware de autenticación y, para las rutas administrativas, un middleware adicional que verifique si el usuario es un administrador. Los endpoints serán documentados para su consumo en un frontend, y se incluirán tests y logging según sea necesario.
 

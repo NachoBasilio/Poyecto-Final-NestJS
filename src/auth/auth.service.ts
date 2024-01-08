@@ -23,7 +23,7 @@ export class AuthService {
   login(user: any) {
     const payload = {
       name: user.username,
-      id: user.userId,
+      id: user.id,
     };
 
     return {
