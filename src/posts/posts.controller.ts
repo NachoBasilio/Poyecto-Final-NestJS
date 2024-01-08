@@ -9,10 +9,12 @@ import {
   Param,
   Put,
   Delete,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { PostsService } from './posts.service';
 import { PostDocument } from '../models/post.model';
+import { PostNotFoundException } from './exceptions/post-not-found.exception';
 
 @Controller('posts')
 @UseGuards(JwtAuthGuard)
@@ -42,7 +44,29 @@ export class PostsController {
     @Body() updatedPost: PostDocument,
     @Req() req,
   ) {
-    return this.postsService.update(postId, updatedPost, req.user);
+    try {
+      const result = await this.postsService.update(
+        postId,
+        updatedPost,
+        req.user,
+      );
+      console.log(result);
+
+      if (result) {
+        return { success: true, data: result };
+      } else {
+        return { success: false, message: 'Post not found or not authorized' };
+      }
+    } catch (error) {
+      console.log(error);
+      if (error instanceof UnauthorizedException) {
+        return { success: false, message: 'Unauthorized' };
+      } else if (error instanceof PostNotFoundException) {
+        return { success: false, message: 'Post not found' };
+      } else {
+        return { success: false, message: 'Internal server error' };
+      }
+    }
   }
 
   @Delete(':id')
