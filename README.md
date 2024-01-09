@@ -297,6 +297,33 @@ La configuración de Jest para el proyecto es la siguiente:
     }
     ```
 
+### Búsqueda de Posts
+- **Método:** GET
+- **URL:** `/posts/search`
+- **Query Parameters:**
+  - `title` (título del post)
+  - `author` (autor del post)
+  - `content` (contenido del post)
+  - `categories` (categorías del post)
+  - `limit` (número de resultados por página, default: 10)
+  - `page` (número de página, default: 1)
+- **Ejemplo de uso:**
+  ```http
+  GET http://localhost:3000/posts/search?title=mi%20titulo&author=autor1&content=contenido1&categories=categoria1&limit=5&page=1
+  ```
+
+
+  ### Filtrado de Posts por Categoría y Autor
+- **Método:** GET
+- **URL:** `/posts/filter`
+- **Query Parameters:**
+  - `category` (categoría del post)
+  - `author` (autor del post)
+- **Ejemplo de uso:**
+  ```http
+  GET http://localhost:3000/posts/filter?category=categoria1&author=autor1
+```
+
 
 Cada endpoint protegido debe ser asegurado mediante el middleware de autenticación y, para las rutas administrativas, un middleware adicional que verifique si el usuario es un administrador. Los endpoints serán documentados para su consumo en un frontend, y se incluirán tests y logging según sea necesario.
 

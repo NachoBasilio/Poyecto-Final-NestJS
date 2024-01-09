@@ -79,4 +79,36 @@ export class PostsService {
   async findAllByUser(userId: string): Promise<PostDocument[]> {
     return this.postModel.find({ author: userId }).exec();
   }
+
+  async search(
+    title: string,
+    author: string,
+    content: string,
+    categories: string,
+    limit = 10,
+    page = 1,
+  ): Promise<PostDocument[]> {
+    const conditions = [];
+    if (title) {
+      conditions.push({ title: { $regex: title, $options: 'i' } });
+    }
+    if (author) {
+      conditions.push({ author: author });
+    }
+    if (content) {
+      conditions.push({ content: { $regex: content, $options: 'i' } });
+    }
+    if (categories) {
+      conditions.push({ categories: { $regex: categories, $options: 'i' } });
+    }
+    return this.postModel
+      .find({ $or: conditions })
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .exec();
+  }
+
+  async filter(categories: string, author: string): Promise<PostDocument[]> {
+    return this.postModel.find({ categories, author }).exec();
+  }
 }
