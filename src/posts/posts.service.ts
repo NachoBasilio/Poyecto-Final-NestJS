@@ -15,7 +15,7 @@ export class PostsService {
 
   async create(post: PostDocument, user: UserDocument): Promise<PostDocument> {
     const authorId = user instanceof Types.ObjectId ? user._id : user.id;
-    console.log(authorId);
+
     post.author = authorId;
     const createdPost = new this.postModel(post);
     return createdPost.save();
@@ -61,7 +61,6 @@ export class PostsService {
 
   async remove(postId: string, user: UserDocument): Promise<boolean> {
     const existingPost = await this.postModel.findById(postId).exec();
-
     if (!existingPost) {
       return false;
     }
@@ -69,7 +68,7 @@ export class PostsService {
     const isAuthorOrAdmin =
       user.isAdmin || existingPost.author.toString() === user.id.toString();
 
-    if (!isAuthorOrAdmin) {
+    if (!isAuthorOrAdmin && !user.isAdmin) {
       return false;
     }
 

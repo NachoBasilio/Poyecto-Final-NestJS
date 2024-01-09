@@ -92,20 +92,6 @@ La configuración de Jest para el proyecto es la siguiente:
 
 ## Endpoints para Usuarios
 
-### Registro de Nuevos Usuarios
-
-- **Método:** POST
-- **URL:** `/auth/register`
-- **Body:**
-  - **JSON:**
-    ```json
-    {
-      "username": "<nombre_de_usuario>",
-      "password": "<contraseña>",
-      "isAdmin": <true_o_false>
-    }
-    ```
-
 ### Inicio de Sesión para Usuarios
 
 - **Método:** POST

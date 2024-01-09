@@ -29,11 +29,6 @@ export class AuthController {
     return req.user;
   }
 
-  @Post('register')
-  async register(@Body() body: { username: string; password: string }) {
-    return this.authService.registerUser(body.username, body.password);
-  }
-
   @Post('users')
   async registerUser(
     @Body() body: { username: string; password: string; isAdmin: boolean },
