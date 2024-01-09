@@ -33,6 +33,40 @@ export class PostsController {
     return this.postsService.findAll(limit, page);
   }
 
+  @Get('user/:userId')
+  async findAllByUser(@Param('userId') userId: string) {
+    return this.postsService.findAllByUser(userId);
+  }
+
+  @Get('search')
+  async search(
+    @Query('title') title: string,
+    @Query('author') author: string,
+    @Query('content') content: string,
+    @Query('categories') categories: string,
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+  ) {
+    limit = limit > 0 ? limit : 10;
+    page = page > 0 ? page : 1;
+    return this.postsService.search(
+      title,
+      author,
+      content,
+      categories,
+      limit,
+      page,
+    );
+  }
+
+  @Get('filter')
+  async filter(
+    @Query('category') category: string,
+    @Query('author') author: string,
+  ) {
+    return this.postsService.filter(category, author);
+  }
+
   @Get(':id')
   async findOne(@Param('id') postId: string) {
     return this.postsService.findOne(postId);
@@ -72,10 +106,5 @@ export class PostsController {
   @Delete(':id')
   async remove(@Param('id') postId: string, @Req() req) {
     return this.postsService.remove(postId, req.user);
-  }
-
-  @Get('user/:userId')
-  async findAllByUser(@Param('userId') userId: string) {
-    return this.postsService.findAllByUser(userId);
   }
 }
