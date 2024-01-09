@@ -14,8 +14,9 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userModel.findOne({ username }).exec();
+
     if (user && (await bcrypt.compare(password, user.password))) {
-      return { id: user.id, username: user.username };
+      return { id: user.id, username: user.username, isAdmin: user.isAdmin };
     }
     return null;
   }
@@ -24,6 +25,7 @@ export class AuthService {
     const payload = {
       name: user.username,
       id: user.id,
+      isAdmin: user.isAdmin,
     };
 
     return {
