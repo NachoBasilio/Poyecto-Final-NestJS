@@ -95,7 +95,7 @@ La configuración de Jest para el proyecto es la siguiente:
 ### Inicio de Sesión para Usuarios
 
 - **Método:** POST
-- **URL:** `/auth/login`
+- **URL:** `/users/login`
 - **Body:**
   - **JSON:**
     ```json
@@ -108,7 +108,7 @@ La configuración de Jest para el proyecto es la siguiente:
 ### Listado de Usuarios (restringido a administradores)
 
 - **Método:** GET
-- **URL:** `/auth/users`
+- **URL:** `/users`
 - **Headers:**
   - **JSON:**
     ```json
@@ -120,7 +120,7 @@ La configuración de Jest para el proyecto es la siguiente:
 ### Obtener Detalles de un Usuario Específico
 
 - **Método:** GET
-- **URL:** `/auth/users/{id}`
+- **URL:** `/users/{id}`
 - **Headers:**
   - **JSON:**
     ```json
@@ -132,7 +132,7 @@ La configuración de Jest para el proyecto es la siguiente:
 ### Actualizar un Usuario Específico (solo su propio perfil o si es administrador)
 
 - **Método:** PUT
-- **URL:** `/auth/users/{id}`
+- **URL:** `/users/{id}`
 - **Body:**
   - **JSON:**
     ```json
@@ -153,7 +153,7 @@ La configuración de Jest para el proyecto es la siguiente:
 ### Eliminar un Usuario (solo administradores)
 
 - **Método:** DELETE
-- **URL:** `/auth/users/{id}`
+- **URL:** `/users/{id}`
 - **Headers:**
   - **JSON:**
     ```json

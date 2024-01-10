@@ -11,7 +11,7 @@ import {
   Delete,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/users/guards/jwt-auth.guard';
 import { PostsService } from './posts.service';
 import { PostDocument } from '../models/post.model';
 import { PostNotFoundException } from './exceptions/post-not-found.exception';

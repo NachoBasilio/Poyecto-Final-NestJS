@@ -1,3 +1,4 @@
+// users.controller.ts
 import {
   Controller,
   Request,
@@ -12,15 +13,15 @@ import {
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
-import { AuthService } from './auth.service';
-@Controller('auth')
-export class AuthController {
-  constructor(private authService: AuthService) {}
+import { UsersService } from './users.service';
+@Controller('users')
+export class UsersController {
+  constructor(private usersService: UsersService) {}
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async loginUser(@Request() req) {
-    return this.authService.login(req.user);
+    return this.usersService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -29,11 +30,11 @@ export class AuthController {
     return req.user;
   }
 
-  @Post('users')
+  @Post()
   async registerUser(
     @Body() body: { username: string; password: string; isAdmin: boolean },
   ) {
-    return this.authService.registerUser(
+    return this.usersService.registerUser(
       body.username,
       body.password,
       body.isAdmin,
@@ -42,32 +43,32 @@ export class AuthController {
 
   // Obtener detalles de un usuario específico
   @UseGuards(JwtAuthGuard)
-  @Get('users/:id')
+  @Get(':id')
   getUserDetails(@Param('id') userId: string) {
-    return this.authService.getUserDetails(userId);
+    return this.usersService.getUserDetails(userId);
   }
 
   // Listado de usuarios (restringido a administradores)
   @UseGuards(JwtAuthGuard)
-  @Get('users')
+  @Get()
   getUsers() {
-    return this.authService.getUsers();
+    return this.usersService.getUsers();
   }
 
   // Actualizar un usuario específico (solo su propio perfil o si es administrador)
   @UseGuards(JwtAuthGuard)
-  @Put('users/:id')
+  @Put(':id')
   updateUser(
     @Param('id') userId: string,
     @Body() body: { username?: string; password?: string; isAdmin?: boolean },
   ) {
-    return this.authService.updateUser(userId, body);
+    return this.usersService.updateUser(userId, body);
   }
 
   // Eliminar un usuario (solo administradores)
   @UseGuards(JwtAuthGuard)
-  @Delete('users/:id')
+  @Delete(':id')
   deleteUser(@Param('id') userId: string) {
-    return this.authService.deleteUser(userId);
+    return this.usersService.deleteUser(userId);
   }
 }

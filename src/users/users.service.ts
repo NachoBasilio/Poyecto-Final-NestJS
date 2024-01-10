@@ -1,3 +1,4 @@
+// users.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -6,7 +7,7 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/models';
 
 @Injectable()
-export class AuthService {
+export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private jwtService: JwtService,
