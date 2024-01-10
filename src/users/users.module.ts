@@ -9,10 +9,12 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 dotenv.config();
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserModel } from '../models/user.model';
+import { PostSchema } from 'src/models';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserModel }]),
+    MongooseModule.forFeature([{ name: 'Post', schema: PostSchema }]),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,

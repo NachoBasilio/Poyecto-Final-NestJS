@@ -1,16 +1,17 @@
-// users.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/models';
+import { PostDocument, Post } from '../models/post.model';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private jwtService: JwtService,
+    @InjectModel(Post.name) private postModel: Model<PostDocument>,
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -80,6 +81,18 @@ export class UsersService {
     // Verifica si el usuario existe
     if (!deletedUser) {
       throw new NotFoundException(`Usuario con ID ${userId} no encontrado`);
+    }
+  }
+
+  async findAll(): Promise<Post[]> {
+    return this.postModel.find().exec();
+  }
+
+  async delete(postId: string): Promise<void> {
+    const deletedPost = await this.postModel.findByIdAndDelete(postId);
+
+    if (!deletedPost) {
+      throw new NotFoundException(`Post con ID ${postId} no encontrado`);
     }
   }
 }
