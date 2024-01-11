@@ -322,7 +322,43 @@ La configuración de Jest para el proyecto es la siguiente:
 - **Ejemplo de uso:**
   ```http
   GET http://localhost:3000/posts/filter?category=categoria1&author=autor1
-```
+  ```
+
+### Obtener Todos los Usuarios (solo administradores)
+
+- **Método:** GET
+- **URL:** `/admin/users`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Eliminar Usuarios (solo administradores)
+
+- **Método:** DELETE
+- **URL:** `/admin/users/{id}`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
+
+### Obtener Todos los Posts con Opciones de Moderación (solo administradores)
+
+- **Método:** GET
+- **URL:** `/admin/posts`
+- **Headers:**
+  - **JSON:**
+    ```json
+    {
+      "Authorization": "Bearer <tu_token_de_acceso>"
+    }
+    ```
 
 
 Cada endpoint protegido debe ser asegurado mediante el middleware de autenticación y, para las rutas administrativas, un middleware adicional que verifique si el usuario es un administrador. Los endpoints serán documentados para su consumo en un frontend, y se incluirán tests y logging según sea necesario.
