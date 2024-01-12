@@ -1,5 +1,10 @@
 # Documentación del Proyecto Final - Blog
 
+## Documentación del Proyecto
+
+- [Documentación en Notion](https://political-thing-0ef.notion.site/SRC-3ad750d8c3ce44578523670ec17c0394)
+
+
 ## Comandos para iniciar el proyecto
 
 Para iniciar el proyecto, puedes usar los siguientes comandos que se encuentran en el archivo `package.json`:

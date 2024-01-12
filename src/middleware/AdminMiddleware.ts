@@ -4,15 +4,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-
-interface User {
-  id: string;
-  username: string;
-  isAdmin: boolean;
-}
+import { IUser } from 'src/interfaces';
 
 interface RequestWithUser extends Request {
-  user: User;
+  user: IUser;
 }
 
 @Injectable()
