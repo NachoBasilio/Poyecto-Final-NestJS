@@ -28,20 +28,20 @@ El proyecto tiene las siguientes dependencias y dependencias de desarrollo:
 
 ### Dependencias
 
-- `@nestjs/common`: "^10.0.0"
-- `@nestjs/core`: "^10.0.0"
-- `@nestjs/jwt`: "^10.2.0"
-- `@nestjs/mongoose`: "^10.0.2"
-- `@nestjs/passport`: "^10.0.3"
-- `@nestjs/platform-express`: "^10.0.0"
-- `bcrypt`: "^5.1.1"
-- `mongoose`: "^8.0.3"
-- `mongoose-autopopulate`: "^1.1.0"
-- `passport`: "^0.7.0"
-- `passport-jwt`: "^4.0.1"
-- `passport-local`: "^1.0.0"
-- `reflect-metadata`: "^0.1.13"
-- `rxjs`: "^7.8.1"
+- `@nestjs/common`: "10.0.0"
+- `@nestjs/core`: "10.0.0"
+- `@nestjs/jwt`: "10.2.0"
+- `@nestjs/mongoose`: "10.0.2"
+- `@nestjs/passport`: "10.0.3"
+- `@nestjs/platform-express`: "10.0.0"
+- `bcrypt`: "5.1.1"
+- `mongoose`: "8.0.3"
+- `mongoose-autopopulate`: "1.1.0"
+- `passport`: "0.7.0"
+- `passport-jwt`: "4.0.1"
+- `passport-local`: "1.0.0"
+- `reflect-metadata`: "0.1.13"
+- `rxjs`: "7.8.1"
 
 ### Dependencias de desarrollo
 
